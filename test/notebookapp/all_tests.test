@@ -1,0 +1,22 @@
+#-------------------------------------------------------------------------
+# TITLE:
+#    all_tests.test
+#
+# PROJECT:
+#    notebook: Your project description
+#
+# DESCRIPTION:
+#    notebookapp(n): Test Suite
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# Load the tcltest package
+
+if {[lsearch [namespace children] ::tcltest] == -1} {
+    package require tcltest 2.3
+    eval ::tcltest::configure $argv
+}
+
+::tcltest::configure  -testdir [file dirname [file normalize [info script]]]  -notfile all_tests.test
+
+::tcltest::runAllTests

@@ -1,0 +1,26 @@
+Now is <b>the</b> <m>time<m> for <i>all</i> <s>good</s> men 
+to come to the aid of their country.
+#---
+[@macro@] Now is the time for all good men to come to the aid of their country.
+
+[%button|command%] Now is the time for all good men to come to the aid of their country.
+
+*   Now is the time for all [good men] to come to the aid of their
+country.
+** Now is the time for all good men to come to the aid of their
+   country.
+*** Now is the time for all good men to come to the aid of their
+    country.
+
+#Tcl
+howdy world
+#unTcl
+
+: Now is the time for all good men to come to the aid of their
+country.
+:: Now is the time for all good men to come to the aid of their
+country.
+::: Now is the time for all good men to come to the aid of their
+country.
+
+

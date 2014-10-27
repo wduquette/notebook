@@ -1,0 +1,248 @@
+# -*-Tcl-*-
+#---------------------------------------------------------------------
+# TITLE:
+#	markupparser.test
+#
+# AUTHOR:
+#	Will Duquette
+#
+# DESCRIPTION:
+#	Test cases for markupparser.tcl.  Uses the ::tcltest:: harness.
+
+
+#---------------------------------------------------------------------
+# Load the tcltest package
+
+if {[lsearch [namespace children] ::tcltest] == -1} {
+    package require tcltest
+    namespace import ::tcltest::*
+}
+
+#-----------------------------------------------------------------------
+# Load the markupparser package.
+
+source markupparser.tcl
+namespace import ::markupparser::*
+
+#-----------------------------------------------------------------------
+# Helper routines
+
+proc prettyParse {markup} {
+    set taglist [parse2 $markup]
+
+    set newlist {}
+    foreach {tag value} $taglist {
+        lappend newlist [list $tag $value]
+    }
+
+    return [join $newlist "\n"]
+}
+
+
+
+#-----------------------------------------------------------------------
+# Basic Parsing
+#
+# This section needs a lot of work.
+
+test parsing-1.1 {Normal paragraphs} {} {
+    prettyParse {
+This is a normal paragraph.
+It has two lines.
+
+This is another normal paragraph.
+    }
+
+} {PRE {
+}
+P {: 0 {}}
+TXT {This is a normal paragraph.
+It has two lines.
+}
+/P {}
+PRE {
+}
+P {: 0 {}}
+TXT {This is another normal paragraph.
+    }
+/P {}}
+
+#-----------------------------------------------------------------------
+# Format as Plain Text
+#
+# This section needs a lot of work as well.
+
+test plain-1.1 {normal paragraphs} {
+    formatplain {
+Now is the time for all good men to come to the aid of their country.
+Now is the time for all good men to come to the aid of their country.
+Now is the time for all good men to come to the aid of their country.
+
+Now is the time for all good men to come to the aid of their country.
+Now is the time for all good men to come to the aid of their country.
+Now is the time for all good men to come to the aid of their country.
+    } -length 30
+} {
+Now is the time for all good
+men to come to the aid of
+their country. Now is the time
+for all good men to come to
+the aid of their country. Now
+is the time for all good men
+to come to the aid of their
+country.
+
+Now is the time for all good
+men to come to the aid of
+their country. Now is the time
+for all good men to come to
+the aid of their country. Now
+is the time for all good men
+to come to the aid of their
+country.
+}
+
+test plain-1.2 {bulleted paragraphs} {
+    formatplain {
+Now is the time for all good men to come to the aid of their country.
+* Now is the time for all good men to come to the aid of their country.
+** Now is the time for all good men to come to the aid of their country.
+*** Now is the time for all good men to come to the aid of their country.
+** Now is the time for all good men to come to the aid of their country.
+* Now is the time for all good men to come to the aid of their country.
+Now is the time for all good men to come to the aid of their country.
+    } -length 40
+} {
+Now is the time for all good men to come
+to the aid of their country.
+  * Now is the time for all good men to
+    come to the aid of their country.
+      * Now is the time for all good men
+        to come to the aid of their
+        country.
+          * Now is the time for all good
+            men to come to the aid of
+            their country.
+      * Now is the time for all good men
+        to come to the aid of their
+        country.
+  * Now is the time for all good men to
+    come to the aid of their country.
+    Now is the time for all good men to
+    come to the aid of their country.
+}
+
+test plain-1.2 {indented paragraphs} {
+    formatplain {
+Now is the time for all good men to come to the aid of their country.
+: Now is the time for all good men to come to the aid of their country.
+:: Now is the time for all good men to come to the aid of their country.
+::: Now is the time for all good men to come to the aid of their country.
+:: Now is the time for all good men to come to the aid of their country.
+: Now is the time for all good men to come to the aid of their country.
+Now is the time for all good men to come to the aid of their country.
+    } -length 40
+} {
+Now is the time for all good men to come
+to the aid of their country.
+    Now is the time for all good men to
+    come to the aid of their country.
+        Now is the time for all good men
+        to come to the aid of their
+        country.
+            Now is the time for all good
+            men to come to the aid of
+            their country.
+        Now is the time for all good men
+        to come to the aid of their
+        country.
+    Now is the time for all good men to
+    come to the aid of their country.
+    Now is the time for all good men to
+    come to the aid of their country.
+}
+
+
+
+#-----------------------------------------------------------------------
+# Rename Links in Page
+
+# The essential property here is that ONLY the specified link is
+# changed.  All other markup remains the same.
+test rename-1.1 {Link renamed, otherwise unchanged.} {} {
+    renameLink {
+For this test, we need some of everything in the markup, so that
+we can see that it's rebuilt the same  Here's an [Old Link].
+
+ Here's some
+   indented preformatted text.
+     which contains an [Old Link] that shouldn't be changed.
+*   Bullet 1
+**  Bullet 2 that's on
+    two lines.
+:   Normal indented text
+:: With eccentric leading
+      and multiple lines.
+
+Here's a <b>line</b> with <m>styled</m> <i>text</i>.
+
+Here's a [%Magic|Button%]. Here's a [@macro@].
+
+Here's another [Old Link] to be renamed.
+
+#pre
+Explicitly preformatted
+   Text
+#unpre
+
+And here's some Tcl.
+#Tcl
+proc foo {} { bar}
+#unTcl
+
+And that's it!   
+    } "Old Link" "New Link"
+} {
+For this test, we need some of everything in the markup, so that
+we can see that it's rebuilt the same  Here's an [New Link].
+
+ Here's some
+   indented preformatted text.
+     which contains an [Old Link] that shouldn't be changed.
+*   Bullet 1
+**  Bullet 2 that's on
+    two lines.
+:   Normal indented text
+:: With eccentric leading
+      and multiple lines.
+
+Here's a <b>line</b> with <m>styled</m> <i>text</i>.
+
+Here's a [%Magic|Button%]. Here's a [@macro@].
+
+Here's another [New Link] to be renamed.
+
+#pre
+Explicitly preformatted
+   Text
+#unpre
+
+And here's some Tcl.
+#Tcl
+proc foo {} { bar}
+#unTcl
+
+And that's it!   
+    }
+
+
+
+
+#-----------------------------------------------------------------------
+# Clean up
+
+::tcltest::cleanupTests
+
+
+
+

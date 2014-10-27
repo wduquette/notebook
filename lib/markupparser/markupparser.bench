@@ -1,0 +1,714 @@
+source markupparser.tcl
+
+set text {
+    This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+
+This is a one line paragraph.
+
+This is a <b>two</b> line [paragraph with] a link
+and a [%Button|magic%].
+
+:: This is a two line indented paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+** This is a two line bulleted paragraph that's supposed to wrap to
+the next line because it's so long and to be indented properly when it
+gets there.
+
+ This is a two line 
+Preformatted paragraph.
+* <i>Three</i>
+** Bulleted
+*** Paragraphs
+#---
+And here's a <m>paragraph</m> with [%One|button%]
+and [%Another|Button [with brackets]%].
+
+[@Bogus Macro@]
+#hash check
+: And one <h>indented</h> one.
+
+And the rest is preformatted,
+* No matter what it is.
+}
+
+proc test1 {text} {
+    set result [markupparser::parse $text]
+}
+
+proc test2 {text} {
+    set result {}
+    foreach {key val} [markupparser::parseExperimental $text] {
+        lappend result $key $val
+    }
+
+}
+
+puts [time {test1 $text}]
+puts [time {test2 $text}]

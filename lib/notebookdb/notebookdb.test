@@ -1,0 +1,629 @@
+# -*-Tcl-*-
+#---------------------------------------------------------------------
+# TITLE:
+#	notebookdb.test
+#
+# AUTHOR:
+#	Will Duquette
+#
+# DESCRIPTION:
+#	Test cases for notebookdb.tcl.  Uses the ::tcltest:: harness.
+
+
+#---------------------------------------------------------------------
+# Load the tcltest package
+
+if {[lsearch [namespace children] ::tcltest] == -1} {
+    package require tcltest
+    namespace import ::tcltest::*
+}
+
+#---------------------------------------------------------------------
+# Load the snit package.
+
+lappend auto_path ..
+source notebookdb.tcl
+namespace import ::notebookdb::notebookdb
+
+# Handle notifications
+
+proc Notify {op name} {
+    global notifyList
+
+    lappend notifyList $op $name
+}
+
+# Cleanup before each test.
+
+proc cleanup {} {
+    global notifyList
+
+    set notifyList {}
+
+    if {[file exists pages.dat]} {
+        file delete pages.dat
+    }
+
+    if {[file exists pages.bak]} {
+        file delete pages.bak
+    }
+
+    if {[info command ::db] != ""} {
+        ::db destroy
+    }
+}
+
+
+#-----------------------------------------------------------------------
+# Database creation
+
+test creation-1.1 {creation but no -dbfile} {} {
+    cleanup
+
+    set result ""
+    catch {notebookdb create db} result
+    set result
+} {Error in constructor: required option -dbfile is missing.}
+
+test creation-1.2 {creation with new -dbfile} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    list [db cget -dbfile] [file exists [db cget -dbfile]]
+} {pages.dat 0}
+
+test creation-1.3 {-dbfile cannot be changed} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    set result {}
+    catch {db configure -dbfile newfile.dat} result
+    set result
+} {-dbfile cannot be changed after the notebookdb is created}
+
+test creation-1.4 {contents of new -dbfile} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db pages
+} {}
+
+#-----------------------------------------------------------------------
+# exists
+
+test exists-1.1 {page existence/nonexistence} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home "Where the heart is!"
+    list [db exists Home] [db exists Office]
+} {1 0}
+
+#-----------------------------------------------------------------------
+# pageids
+
+test pageids-1.1 {get pageids} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home {} 
+    db set "Recent Changes" {} 
+    db pageids
+} {home {recent changes}}
+
+#-----------------------------------------------------------------------
+# get
+
+test get-1.1 {get page text} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set One "My First Page"
+    db set Two "My Second Page"
+    list [db get One] [db get Two]
+} {{My First Page
+} {My Second Page
+}}
+
+#-----------------------------------------------------------------------
+# lock/unlock/locked
+
+test locks-1.1 {pages are not locked by default} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home {}
+    db locked Home
+} {0}
+
+test locks-1.2 {pages can be locked and unlocked} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home {}
+    set a [db locked Home]
+    db lock Home
+    set b [db locked Home]
+    db unlock Home
+    set c [db locked Home]
+    list $a $b $c
+} {0 1 0}
+
+#-----------------------------------------------------------------------
+# set
+
+test set-1.1 {set creates page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Foo Bar
+    list [db exists Foo] [db get Foo]
+} {1 {Bar
+}}
+
+test set-1.2 {set changes page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home Bar
+    db get Home
+} {Bar
+}
+
+test set-1.3 {can't set locked page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home ""
+    db lock Home
+    set result ""
+    catch {db set Home Bar} result
+    set result
+} {Error, 'Home' is locked.}
+
+#-----------------------------------------------------------------------
+# name
+
+test name-1.1 {get canonical name} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home {}
+    list [db name home] [db name hOmE]
+} {Home Home}
+
+#-----------------------------------------------------------------------
+# pagetime
+
+test pagetime-1.1 {page time is current for new pages} {} {
+    cleanup
+
+    set t1 [clock seconds]
+    notebookdb create db -dbfile pages.dat
+    after 2000
+    db set Home {}
+    set t2 [db pagetime Home]
+
+    expr {$t1 <= $t2}
+} {1}
+
+test pagetime-1.2 {page time formats} {} {
+    cleanup
+
+    set d1 [clock format [clock seconds] -format "%D"]
+    notebookdb create db -dbfile pages.dat
+    db set Home {}
+    set d2 [db pagetime Home "%D"]
+
+    string equal $d1 $d2
+} {1}
+
+#-----------------------------------------------------------------------
+# prevpage/nextpage
+
+test prevnext-1.1 {get next page when there is one} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set A ""
+    db set B ""
+    db nextpage A
+} {B}
+
+test prevnext-1.2 {get next page when there isn't one} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set A ""
+    db nextpage A
+} {}
+
+test prevnext-1.3 {get prev page when there is one} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set A ""
+    db set B ""
+    db prevpage B
+} {A}
+
+test prevnext-1.4 {get prev page when there isn't one} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set A ""
+    db prevpage {A}
+} {}
+
+
+
+#-----------------------------------------------------------------------
+# pagesbytime
+
+test pagesbytime-1.1 {pagesbytime} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set A foo
+    after 1000
+    db set B foo
+    after 1000
+    db set C foo
+    after 1000
+    db set D foo
+    after 1000
+    db set E foo
+
+    db pagesbytime
+} {E D C B A}
+
+#-----------------------------------------------------------------------
+# search
+
+test search-1.1 {searching: successful} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set A {John Doe}
+    db set "John Jones" {}
+    db set C {Sue Jones}
+    db search John
+} {A {John Jones}}
+
+test search-1.2 {searching: unsuccessful} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set A {John Doe}
+    db set "John Jones" {}
+    db set C {Sue Jones}
+    db search xyzzy
+} {}
+
+#-----------------------------------------------------------------------
+# destroy
+
+test destroy-1.1 {destroy gets rid of self} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    set a [info commands "::db"]
+    db destroy
+    set b [info commands "::db"]
+
+    list $a $b
+} {::db {}}
+
+test destroy-1.2 {destroy gets rid of interpreter} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    set a [info commands "::db.interp"]
+    db destroy
+    set b [info commands "::db.interp"]
+
+    list $a $b
+} {::db.interp {}}
+
+#-----------------------------------------------------------------------
+# save
+
+test save-1.1 {saving works} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+
+    db set Foo Bar
+    db save
+    db destroy
+
+    notebookdb create db -dbfile pages.dat
+    db get Foo
+} {Bar}
+
+
+#-----------------------------------------------------------------------
+# eval
+
+test eval-1.1 {eval evaluates} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db eval {expr {2 + 2}}
+} {4}
+
+test eval-1.2 {eval evaluates} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db eval expr {2 + 2}
+} {4}
+
+#-----------------------------------------------------------------------
+# alias
+
+test alias-1.1 {alias aliases} {} {
+    cleanup
+
+    proc procToAlias {value} {
+        return $value
+    }
+
+    notebookdb create db -dbfile pages.dat
+    db alias howdy procToAlias Howdy
+    db eval howdy
+} {Howdy}
+
+#-----------------------------------------------------------------------
+# expand
+
+test expand-1.1 {expand expands} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db expand {*[@expr 2 + 2@]*}
+} {*4*}
+
+#-----------------------------------------------------------------------
+# pageexpand
+
+test pageexpand-1.1 {pageexpand expands pages} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Foo {*[@expr 2 + 2@]*} 
+    db pageexpand Foo 
+} {*4*
+}
+
+#-----------------------------------------------------------------------
+# delete
+
+test delete-1.1 {delete page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home ""
+    set a [db exists Home]
+    db delete Home
+    set b [db exists Home]
+    list $a $b
+} {1 0}
+
+test delete-1.2 {can't delete locked page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home ""
+    db lock Home
+    set result {}
+    catch {db delete Home} result
+    set result
+} {Error, 'Home' is locked.}
+
+
+#-----------------------------------------------------------------------
+# rename
+
+test rename-1.1 {rename page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Foo {*[Foo]*}
+    db set Bar {+[Foo]+}
+    db rename Foo Quux
+    list \
+        [db exists Foo] \
+        [db exists Quux] \
+        [string trim [db get Quux]] \
+        [string trim [db get Bar]]
+} {0 1 {*[Quux]*} {+[Quux]+}}
+
+test rename-1.2 {can't rename locked page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home ""
+    db lock Home
+
+    catch {db rename Home Office} result
+    set result
+} {Error, 'Home' is locked.}
+
+test rename-1.3 {can't rename nonexistent page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    set result {}
+    catch {db rename Office Study} result
+    set result
+} {Cannot rename 'Office'; no such page.}
+
+test rename-1.4 {can't rename to existing page} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Index ""
+    db set Home ""
+
+    catch {db rename Index Home} result
+    set result
+} {The name 'Home' is already in use.}
+
+#-----------------------------------------------------------------------
+# standard aliases
+
+test aliases-1.1 {pageexists} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home ""
+    db eval pageexists Home
+} {1}
+
+test aliases-1.2 {pagename} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home ""
+    db eval pagename hOmE
+} {Home}
+
+test aliases-1.3 {pageget} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Foo Bar
+    db eval pageget Foo
+} {Bar
+}
+
+test aliases-1.4 {expand} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db eval {expand {*[@expr 2 + 2@]*}}
+} {*4*}
+
+test aliases-1.5 {pageexpand} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Foo {*[@expr 2 + 2@]*}
+    db eval pageexpand Foo
+} {*4*
+}
+
+test aliases-1.6 {pages} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db set Home ""
+    db set Office ""
+    db eval pages
+} {Home Office}
+
+test aliases-1.7 {dbfile} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db eval dbfile
+} {pages.dat}
+
+test aliases-1.8 {existence of remaining aliases} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+
+    set aliases {pagesbytime pagetime pagesearch}
+  
+    set result {}
+
+    foreach alias $aliases {
+        lappend result [db eval info command $alias]
+    }
+
+    set result
+} {pagesbytime pagetime pagesearch}
+
+#-----------------------------------------------------------------------
+# notifycommand
+
+test notify-1.1 {notify on set} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db register Me Notify
+    db set Foo Bar
+
+    set notifyList
+} {set Foo}
+
+test notify-1.2 {notify on delete} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db register Me Notify
+    db set Foo Bar
+    db delete Foo
+
+    set notifyList
+} {set Foo delete Foo}
+
+test notify-1.3 {notify on rename to change case} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db register Me Notify
+    db set foo Bar
+    db rename foo Foo
+
+    set notifyList
+} {set foo set Foo}
+
+test notify-1.4 {notify on normal rename} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db register Me Notify
+    db set One xyz
+    db set Two {[One]}
+    db rename One Uno
+
+    set notifyList
+} {set One set Two set One set Two set Uno delete One}
+
+test notify-1.5 {register and unregister notify} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db register Me Notify
+    db set One xyz
+    db unregister Me
+    db delete One
+
+    set notifyList
+} {set One}
+
+test notify-1.6 {multiple observers} {} {
+    cleanup
+
+    notebookdb create db -dbfile pages.dat
+    db register Me Notify
+    db register You Notify
+    db set One xyz
+
+    set notifyList
+} {set One set One}
+
+
+#---------------------------------------------------------------------
+# Clean up
+
+cleanup
+
+::tcltest::cleanupTests
+return
+
+
+

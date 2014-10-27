@@ -1,0 +1,9 @@
+*.sublime-*
+*.html
+*.log
+*.exe
+bin/*macosx*
+bin/*linux*
+bin/*.kit
+*~
+*.bak
