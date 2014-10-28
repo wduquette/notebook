@@ -27,7 +27,7 @@ package require combobox
 #
 # Creates a Preferences Window.
 
-snit::widget ::Notebook::prefsdialog {
+snit::widget ::app_notebook::prefsdialog {
     hulltype toplevel
     delegate method * to hull
     delegate option * to hull
@@ -255,7 +255,7 @@ snit::widget ::Notebook::prefsdialog {
 #-----------------------------------------------------------------------
 # FontsTab
 
-snit::widget ::Notebook::prefsdialog::FontsTab {
+snit::widget ::app_notebook::prefsdialog::FontsTab {
     delegate method * to hull
     delegate option * to hull
 
@@ -404,7 +404,7 @@ snit::widget ::Notebook::prefsdialog::FontsTab {
 #-----------------------------------------------------------------------
 # ColorsTab
 
-snit::widget ::Notebook::prefsdialog::ColorsTab {
+snit::widget ::app_notebook::prefsdialog::ColorsTab {
 
     delegate method * to hull
     delegate option * to hull
@@ -525,7 +525,7 @@ snit::widget ::Notebook::prefsdialog::ColorsTab {
 #-----------------------------------------------------------------------
 # Editor Tab
 
-snit::widget ::Notebook::prefsdialog::EditorTab {
+snit::widget ::app_notebook::prefsdialog::EditorTab {
     # Make sure that the Notebook BWidget can manage this component.
     delegate option * to hull
     delegate method * to hull
@@ -611,7 +611,7 @@ autowrap or when Tab is pressed at the beginning of the line.}
 #-----------------------------------------------------------------------
 # Misc Tab
 
-snit::widget ::Notebook::prefsdialog::MiscTab {
+snit::widget ::app_notebook::prefsdialog::MiscTab {
     delegate option * to hull
     delegate method * to hull
 
@@ -670,7 +670,7 @@ snit::widget ::Notebook::prefsdialog::MiscTab {
 #-----------------------------------------------------------------------
 # Tcl/Tk Tab
 
-snit::widget ::Notebook::prefsdialog::TclTkTab {
+snit::widget ::app_notebook::prefsdialog::TclTkTab {
     # Make sure that the Notebook BWidget can manage this component.
     delegate option * to hull
     delegate method * to hull
@@ -717,7 +717,7 @@ extensions.  This option takes effect on restart." \
 #-----------------------------------------------------------------------
 # Scaling Tab
 
-snit::widget ::Notebook::prefsdialog::ScalingTab {
+snit::widget ::app_notebook::prefsdialog::ScalingTab {
     # Make sure that the Notebook BWidget can manage this component.
     delegate option * to hull
     delegate method * to hull

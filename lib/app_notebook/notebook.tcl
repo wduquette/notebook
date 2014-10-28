@@ -133,7 +133,7 @@ source [file join $appdir nbobjects.tcl]
 source [file join $appdir pageeditor.tcl]
 source [file join $appdir prefs_dialog.tcl]
 
-namespace import ::Notebook::prefs
+namespace import ::app_notebook::prefs
 
 source [file join $appdir nbactionmanager.tcl]
 source [file join $appdir dbmanager.tcl]
@@ -141,12 +141,12 @@ source [file join $appdir messagelog.tcl]
 source [file join $appdir welcomer.tcl]
 source [file join $appdir pageviewer.tcl]
 source [file join $appdir helpbrowser.tcl]
-namespace import ::Notebook::HelpBrowser::*
+namespace import ::app_notebook::HelpBrowser::*
 
 source [file join $appdir notebookbrowser.tcl]
 
 # Create images
-image create photo ::Notebook::missing \
+image create photo ::app_notebook::missing \
     -file [file join $appdir missing.gif]
 
 #-----------------------------------------------------------------------

@@ -22,7 +22,7 @@
 #-----------------------------------------------------------------------
 # Namespace
 
-namespace eval ::Notebook::HelpBrowser:: {
+namespace eval ::app_notebook::HelpBrowser:: {
     namespace export {[a-z]*}
 
     # The "" array contains information about the helpbrowser.  There
@@ -46,7 +46,7 @@ namespace eval ::Notebook::HelpBrowser:: {
 # Saves sufficient information to create the help browser when it is
 # wanted.
 
-proc ::Notebook::HelpBrowser::helpbrowser {helpfile} {
+proc ::app_notebook::HelpBrowser::helpbrowser {helpfile} {
     variable ""
 
     # First, calling this twice is an error.
@@ -66,7 +66,7 @@ proc ::Notebook::HelpBrowser::helpbrowser {helpfile} {
 # Displays the named page in the help browser, first creating it if
 # necessary.
 
-proc ::Notebook::HelpBrowser::showhelp {{helppage "Help"}} {
+proc ::app_notebook::HelpBrowser::showhelp {{helppage "Help"}} {
     variable ""
 
     # First, create the browser if need be.
@@ -96,7 +96,7 @@ proc ::Notebook::HelpBrowser::showhelp {{helppage "Help"}} {
 #
 # Creates the help browser window.
 
-proc ::Notebook::HelpBrowser::MakeBrowser {} {
+proc ::app_notebook::HelpBrowser::MakeBrowser {} {
     variable ""
 
     # TBD: Consider passing the help file name and letting the

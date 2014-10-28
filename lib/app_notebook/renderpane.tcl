@@ -789,7 +789,7 @@ snit::widgetadaptor renderpane {
             set images [LoadImage $fileName $opts(-width) $opts(-height)]
         } catch -msg msg {
             puts "Couldn't load '$fileName': $msg"
-            set images [list ::Notebook::missing]
+            set images [list ::app_notebook::missing]
         }
 
         # NEXT, insert it into the text window.  If there's only one

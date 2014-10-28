@@ -20,7 +20,7 @@ package require Tk
 # prefs could be implemented as an ensemble: a type with no instances but
 # only typemethods.  For historical reasons, though, it's been 
 # implemented as a normal type with just one instance.
-snit::type ::Notebook::prefsmanager {
+snit::type ::app_notebook::prefsmanager {
     # Preferences array
     variable prefs
 
@@ -140,7 +140,7 @@ snit::type ::Notebook::prefsmanager {
             try {
                 source [PrefFileName]
                 tk scaling $prefs(scaling)
-            } catch -msg errmsg {
+            } on error errmsg {
                 msg "Error in user preferences file '$fname'; preferences might not be set.  The error was: $errmsg"
             }
         }
@@ -160,7 +160,7 @@ snit::type ::Notebook::prefsmanager {
             }
             puts $f "# End of preferences"
             close $f
-        } catch -msg errmsg {
+        } on error errmsg {
             msg "Could not save user preferences to [PrefFileName]: $errmsg"
         }
 
@@ -172,7 +172,7 @@ snit::type ::Notebook::prefsmanager {
     method dialog {} {
         # Create the dialog, if one doesn't exist.
         if {"" == [info commands .prefsdialog]} {
-            ::Notebook::prefsdialog .prefsdialog
+            ::app_notebook::prefsdialog .prefsdialog
         }
 
         # Make sure it's visible.
@@ -283,9 +283,9 @@ snit::type ::Notebook::prefsmanager {
 }
 
 # Create one instance of this object.
-::Notebook::prefsmanager create ::Notebook::prefs
+::app_notebook::prefsmanager create ::app_notebook::prefs
 
-namespace eval ::Notebook:: {
+namespace eval ::app_notebook:: {
     namespace export prefs
 }
 
