@@ -595,7 +595,7 @@ proc ::markupparser::WrapParagraph {text length indent bullet} {
     # Wrap it as though it's not indented, but leave space for the indent.
     set wrapcol [expr {$length - 4*$indent}]
 
-    set wrappedText [::textutil::adjust $text -length $wrapcol]
+    set wrappedText [::textutil::adjust::adjust $text -length $wrapcol]
 
     if {$indent} {
         set lines [split $wrappedText "\n"]
