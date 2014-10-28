@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------
 # TITLE:
-#    app_notebook.test
+#    markupparser.test
 #
 # PROJECT:
-#    notebook: Your project description
+#    notebook: Notebook Personal Wiki
 #
 # DESCRIPTION:
-#    app_notebook(n): Test Suite
+#    markupparser(n): Test Suite
 #-------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------

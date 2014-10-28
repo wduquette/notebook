@@ -15,20 +15,16 @@
 #	notebookdb defines the following error codes:
 #
 #	::notebook::loaderror
-#           The requested -dbfile could not be loaded or created.
+#       The requested -dbfile could not be loaded or created.
 #
-#       ::notebook::saveerror
-#           The -dbfile could not be saved.
+#   ::notebook::saveerror
+#       The -dbfile could not be saved.
 #
 #       These are environmental errors, which the caller can't 
 #	reasonably check before requesting the failed action, so
 #	the codes are defined to ease error recovery.
 #
 #       All other errors are avoidable, and so the error code is not set.
-#
-# LICENSE:
-#       Copyright (C) 2002,2003,2004,2005 by William H. Duquette.  
-#       This file may be used subject to the terms in license.txt.
 #
 #-----------------------------------------------------------------------
 
@@ -45,14 +41,8 @@ snit::type ::notebookdb::notebookdb {
 
     # The database file name.  It must be specified when the database
     # is created.
-    option -dbfile ""
-
-    onconfigure -dbfile {value} {
-        if {"" != $options(-dbfile)} {
-            error "-dbfile cannot be changed after the notebookdb is created"
-        }
-        set options(-dbfile) $value
-    }
+    option -dbfile \
+        -readonly yes
 
     #------------------------------------------------------------------
     # Instance Variables
