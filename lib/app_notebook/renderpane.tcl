@@ -787,7 +787,7 @@ snit::widgetadaptor renderpane {
 
         try {
             set images [LoadImage $fileName $opts(-width) $opts(-height)]
-        } catch -msg msg {
+        } on error {msg} {
             puts "Couldn't load '$fileName': $msg"
             set images [list ::app_notebook::missing]
         }

@@ -948,15 +948,9 @@ snit::type nbactionmanager {
     method new-notebook {} {
         try {
             set newdb [dbmanager new $options(-toplevel)]
-        } on error msg {
-            # FIXME
-            onerr notebookdb::loaderror {
-                error $msg {} USER
-            } * {
-                # FIXME
-                error $msg $::errorInfo $::errorCode
-            }
-        } 
+        } trap notebookdb::loaderror {msg} {
+            throw USER $smg
+        }
 
         if {$newdb eq ""} {
             error "Cancelled." {} USER
@@ -983,16 +977,9 @@ snit::type nbactionmanager {
     method open-notebook {} {
         try {
             set newdb [dbmanager open $options(-toplevel)]
-        } on error msg {
-            # FIXME
-            error $msg {} USER
-
-            onerr notebookdb::loaderror {
-                error $msg {} USER
-            } * {
-                error $msg $einfo $code
-            }
-        } 
+        } trap notebookdb::loaderror {msg} {
+            throw $msg USER
+        }
 
         if {$newdb eq ""} {
             error "Cancelled." {} USER

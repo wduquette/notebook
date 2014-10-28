@@ -108,7 +108,7 @@ snit::type ::notebookdb::notebookdb {
             try {
                 try {
                     $self.loader eval [list source $filename]
-                } catch -msg result {
+                } on error {result} {
                     throw notebookdb::loaderror \
                         "Could not load notebook file '$filename': $result"
                 }
@@ -173,7 +173,7 @@ snit::type ::notebookdb::notebookdb {
 
         try {
             $self SaveDatabase $fname
-        } catch -msg errmsg {
+        } on error {errmsg} {
             throw notebookdb::saveerror \
                 "Could not save notebook file:\n\n'$fname'\n\n$errmsg"
         }

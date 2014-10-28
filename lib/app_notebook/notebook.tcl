@@ -203,14 +203,9 @@ if {[llength $notebooks] == 0} {
             
             set db [dbmanager openfile $notebook]
             notebookbrowser .%AUTO% -db $db
-        } catch -msg msg -code code -info info {
-            onerr notebookdb::loaderror {
-                welcomer .%AUTO% -errormsg $msg
-            } * {
-                puts stderr $info
-                exit 1
-            }
-        }
+        } trap notebookdb::loaderror {msg} {
+            welcomer .%AUTO% -errormsg $msg
+        } 
     }
 }
 
@@ -228,13 +223,9 @@ if {[tk windowingsystem] eq "aqua"} {
         foreach name $args {
             try {
                 set newdb [dbmanager openfile $name]
-            } catch -msg msg -info einfo -code code {
-                onerr notebookdb::loaderror {
-                    error $msg {} USER
-                } * {
-                    error $msg $einfo $code
-                }
-            } 
+            } trap notebookdb::loaderror {msg} {
+                throw USER $msg
+            }
             
             if {$newdb eq ""} {
                 error "Cancelled." {} USER

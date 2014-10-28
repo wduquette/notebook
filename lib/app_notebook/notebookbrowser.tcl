@@ -1018,9 +1018,9 @@ snit::widget notebookbrowser {
             set f [open $filename w]
             puts $f $text
             close $f
-        } catch -msg msg {
+        } on error {msg} {
             catch {close $f}
-            error "Could not save $filename: $msg" "" USER
+            throw USER "Could not save $filename: $msg"
         }
     }
 
@@ -1389,8 +1389,8 @@ snit::widget notebookbrowser {
         if {![file exists $dirname]} {
             try {
                 file mkdir $dirname
-            } catch -msg msg {
-                error "Could not create directory '$dirname': $msg" "" USER
+            } on error {msg} {
+                throw USER "Could not create directory '$dirname': $msg"
             }
         } else {
             set filelist [glob -nocomplain -- [file join $dirname *]]
@@ -1628,8 +1628,9 @@ snit::widget notebookbrowser {
             # Reload the specified page's code; then show the 
             # current page again.
             $self EvalUserCode $code
-        } catch -msg msg -info einfo {
-            error "Error loading code page '$name': $msg" $einfo 
+        } on error {msg} {
+            # FIXME
+            error "Error loading code page '$name': $msg" $::errorInfo 
         }
         
         # At initial startup there might be no current page yet; so
