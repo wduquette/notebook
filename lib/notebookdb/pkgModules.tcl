@@ -24,6 +24,7 @@ package provide notebookdb 2.2.0
 
 # -quill-require-begin INSERT PACKAGE REQUIRES HERE
 package require snit 2.3
+package require textutil::expander 1.3.1
 # -quill-require-end
 
 package require markupparser

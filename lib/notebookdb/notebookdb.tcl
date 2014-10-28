@@ -119,6 +119,7 @@ snit::type ::notebookdb::notebookdb {
 
         # Alias the database object itself into the slave.
         $self.interp alias ::db::db $self
+        # $self.interp alias pageexists $self exists
     }
     
     # Destroys the interpreter; all other cleanup is done by snit.

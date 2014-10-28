@@ -184,20 +184,18 @@ test set-1.3 {can't set locked page} -body {
 #-----------------------------------------------------------------------
 # name
 
-test name-1.1 {get canonical name} {} {
-    cleanup
-
+test name-1.1 {get canonical name} -body {
     notebookdb create db -dbfile pages.dat
     db set Home {}
     list [db name home] [db name hOmE]
-} {Home Home}
+} -cleanup {
+    cleanup
+} -result {Home Home}
 
 #-----------------------------------------------------------------------
 # pagetime
 
-test pagetime-1.1 {page time is current for new pages} {} {
-    cleanup
-
+test pagetime-1.1 {page time is current for new pages} -body {
     set t1 [clock seconds]
     notebookdb create db -dbfile pages.dat
     after 2000
@@ -205,64 +203,64 @@ test pagetime-1.1 {page time is current for new pages} {} {
     set t2 [db pagetime Home]
 
     expr {$t1 <= $t2}
-} {1}
-
-test pagetime-1.2 {page time formats} {} {
+} -cleanup {
     cleanup
+} -result {1}
 
+test pagetime-1.2 {page time formats} -body {
     set d1 [clock format [clock seconds] -format "%D"]
     notebookdb create db -dbfile pages.dat
     db set Home {}
     set d2 [db pagetime Home "%D"]
 
     string equal $d1 $d2
-} {1}
+} -cleanup {
+    cleanup
+} -result {1}
 
 #-----------------------------------------------------------------------
 # prevpage/nextpage
 
-test prevnext-1.1 {get next page when there is one} {} {
-    cleanup
-
+test prevnext-1.1 {get next page when there is one} -body {
     notebookdb create db -dbfile pages.dat
     db set A ""
     db set B ""
     db nextpage A
-} {B}
-
-test prevnext-1.2 {get next page when there isn't one} {} {
+} -cleanup {
     cleanup
+} -result {B}
 
+test prevnext-1.2 {get next page when there isn't one} -body {
     notebookdb create db -dbfile pages.dat
     db set A ""
     db nextpage A
-} {}
-
-test prevnext-1.3 {get prev page when there is one} {} {
+} -cleanup {
     cleanup
+} -result {}
 
+test prevnext-1.3 {get prev page when there is one} -body {
     notebookdb create db -dbfile pages.dat
     db set A ""
     db set B ""
     db prevpage B
-} {A}
-
-test prevnext-1.4 {get prev page when there isn't one} {} {
+} -cleanup {
     cleanup
+} -result {A}
 
+test prevnext-1.4 {get prev page when there isn't one} -body {
     notebookdb create db -dbfile pages.dat
     db set A ""
     db prevpage {A}
-} {}
+} -cleanup {
+    cleanup
+} -result {}
 
 
 
 #-----------------------------------------------------------------------
 # pagesbytime
 
-test pagesbytime-1.1 {pagesbytime} {} {
-    cleanup
-
+test pagesbytime-1.1 {pagesbytime} -body {
     notebookdb create db -dbfile pages.dat
     db set A foo
     after 1000
@@ -275,62 +273,62 @@ test pagesbytime-1.1 {pagesbytime} {} {
     db set E foo
 
     db pagesbytime
-} {E D C B A}
+} -cleanup {
+    cleanup
+} -result {E D C B A}
 
 #-----------------------------------------------------------------------
 # search
 
-test search-1.1 {searching: successful} {} {
-    cleanup
-
+test search-1.1 {searching: successful} -body {
     notebookdb create db -dbfile pages.dat
     db set A {John Doe}
     db set "John Jones" {}
     db set C {Sue Jones}
     db search John
-} {A {John Jones}}
-
-test search-1.2 {searching: unsuccessful} {} {
+} -cleanup {
     cleanup
+} -result {A {John Jones}}
 
+test search-1.2 {searching: unsuccessful} -body {
     notebookdb create db -dbfile pages.dat
     db set A {John Doe}
     db set "John Jones" {}
     db set C {Sue Jones}
     db search xyzzy
-} {}
+} -cleanup {
+    cleanup
+} -result {}
 
 #-----------------------------------------------------------------------
 # destroy
 
-test destroy-1.1 {destroy gets rid of self} {} {
-    cleanup
-
+test destroy-1.1 {destroy gets rid of self} -body {
     notebookdb create db -dbfile pages.dat
     set a [info commands "::db"]
     db destroy
     set b [info commands "::db"]
 
     list $a $b
-} {::db {}}
-
-test destroy-1.2 {destroy gets rid of interpreter} {} {
+} -cleanup {
     cleanup
+} -result {::db {}}
 
+test destroy-1.2 {destroy gets rid of interpreter} -body {
     notebookdb create db -dbfile pages.dat
     set a [info commands "::db.interp"]
     db destroy
     set b [info commands "::db.interp"]
 
     list $a $b
-} {::db.interp {}}
+} -cleanup {
+    cleanup
+} -result {::db.interp {}}
 
 #-----------------------------------------------------------------------
 # save
 
-test save-1.1 {saving works} {} {
-    cleanup
-
+test save-1.1 {saving works} -body {
     notebookdb create db -dbfile pages.dat
 
     db set Foo Bar
@@ -339,32 +337,32 @@ test save-1.1 {saving works} {} {
 
     notebookdb create db -dbfile pages.dat
     db get Foo
-} {Bar}
+} -cleanup {
+    cleanup
+} -result {Bar}
 
 
 #-----------------------------------------------------------------------
 # eval
 
-test eval-1.1 {eval evaluates} {} {
-    cleanup
-
+test eval-1.1 {eval evaluates} -body {
     notebookdb create db -dbfile pages.dat
     db eval {expr {2 + 2}}
-} {4}
-
-test eval-1.2 {eval evaluates} {} {
+} -cleanup {
     cleanup
+} -result {4}
 
+test eval-1.2 {eval evaluates} -body {
     notebookdb create db -dbfile pages.dat
     db eval expr {2 + 2}
-} {4}
+} -cleanup {
+    cleanup
+} -result {4}
 
 #-----------------------------------------------------------------------
 # alias
 
-test alias-1.1 {alias aliases} {} {
-    cleanup
-
+test alias-1.1 {alias aliases} -body {
     proc procToAlias {value} {
         return $value
     }
@@ -372,62 +370,62 @@ test alias-1.1 {alias aliases} {} {
     notebookdb create db -dbfile pages.dat
     db alias howdy procToAlias Howdy
     db eval howdy
-} {Howdy}
+} -cleanup {
+    cleanup
+} -result {Howdy}
 
 #-----------------------------------------------------------------------
 # expand
 
-test expand-1.1 {expand expands} {} {
-    cleanup
-
+test expand-1.1 {expand expands} -body {
     notebookdb create db -dbfile pages.dat
     db expand {*[@expr 2 + 2@]*}
-} {*4*}
+} -cleanup {
+    cleanup
+} -result {*4*}
 
 #-----------------------------------------------------------------------
 # pageexpand
 
-test pageexpand-1.1 {pageexpand expands pages} {} {
-    cleanup
-
+test pageexpand-1.1 {pageexpand expands pages} -body {
     notebookdb create db -dbfile pages.dat
     db set Foo {*[@expr 2 + 2@]*} 
     db pageexpand Foo 
-} {*4*
+} -cleanup {
+    cleanup
+} -result {*4*
 }
 
 #-----------------------------------------------------------------------
 # delete
 
-test delete-1.1 {delete page} {} {
-    cleanup
-
+test delete-1.1 {delete page} -body {
     notebookdb create db -dbfile pages.dat
     db set Home ""
     set a [db exists Home]
     db delete Home
     set b [db exists Home]
     list $a $b
-} {1 0}
-
-test delete-1.2 {can't delete locked page} {} {
+} -cleanup {
     cleanup
+} -result {1 0}
 
+test delete-1.2 {can't delete locked page} -body {
     notebookdb create db -dbfile pages.dat
     db set Home ""
     db lock Home
     set result {}
     catch {db delete Home} result
     set result
-} {Error, 'Home' is locked.}
+} -cleanup {
+    cleanup
+} -result {Error, 'Home' is locked.}
 
 
 #-----------------------------------------------------------------------
 # rename
 
-test rename-1.1 {rename page} {} {
-    cleanup
-
+test rename-1.1 {rename page} -body {
     notebookdb create db -dbfile pages.dat
     db set Foo {*[Foo]*}
     db set Bar {+[Foo]+}
@@ -437,153 +435,78 @@ test rename-1.1 {rename page} {} {
         [db exists Quux] \
         [string trim [db get Quux]] \
         [string trim [db get Bar]]
-} {0 1 {*[Quux]*} {+[Quux]+}}
-
-test rename-1.2 {can't rename locked page} {} {
+} -cleanup {
     cleanup
+} -result {0 1 {*[Quux]*} {+[Quux]+}}
 
+test rename-1.2 {can't rename locked page} -body {
     notebookdb create db -dbfile pages.dat
     db set Home ""
     db lock Home
 
     catch {db rename Home Office} result
     set result
-} {Error, 'Home' is locked.}
-
-test rename-1.3 {can't rename nonexistent page} {} {
+} -cleanup {
     cleanup
+} -result {Error, 'Home' is locked.}
 
+test rename-1.3 {can't rename nonexistent page} -body {
     notebookdb create db -dbfile pages.dat
     set result {}
     catch {db rename Office Study} result
     set result
-} {Cannot rename 'Office'; no such page.}
-
-test rename-1.4 {can't rename to existing page} {} {
+} -cleanup {
     cleanup
+} -result {Cannot rename 'Office'; no such page.}
 
+test rename-1.4 {can't rename to existing page} -body {
     notebookdb create db -dbfile pages.dat
     db set Index ""
     db set Home ""
 
     catch {db rename Index Home} result
     set result
-} {The name 'Home' is already in use.}
-
-#-----------------------------------------------------------------------
-# standard aliases
-
-test aliases-1.1 {pageexists} {} {
+} -cleanup {
     cleanup
+} -result {The name 'Home' is already in use.}
 
-    notebookdb create db -dbfile pages.dat
-    db set Home ""
-    db eval pageexists Home
-} {1}
-
-test aliases-1.2 {pagename} {} {
-    cleanup
-
-    notebookdb create db -dbfile pages.dat
-    db set Home ""
-    db eval pagename hOmE
-} {Home}
-
-test aliases-1.3 {pageget} {} {
-    cleanup
-
-    notebookdb create db -dbfile pages.dat
-    db set Foo Bar
-    db eval pageget Foo
-} {Bar
-}
-
-test aliases-1.4 {expand} {} {
-    cleanup
-
-    notebookdb create db -dbfile pages.dat
-    db eval {expand {*[@expr 2 + 2@]*}}
-} {*4*}
-
-test aliases-1.5 {pageexpand} {} {
-    cleanup
-
-    notebookdb create db -dbfile pages.dat
-    db set Foo {*[@expr 2 + 2@]*}
-    db eval pageexpand Foo
-} {*4*
-}
-
-test aliases-1.6 {pages} {} {
-    cleanup
-
-    notebookdb create db -dbfile pages.dat
-    db set Home ""
-    db set Office ""
-    db eval pages
-} {Home Office}
-
-test aliases-1.7 {dbfile} {} {
-    cleanup
-
-    notebookdb create db -dbfile pages.dat
-    db eval dbfile
-} {pages.dat}
-
-test aliases-1.8 {existence of remaining aliases} {} {
-    cleanup
-
-    notebookdb create db -dbfile pages.dat
-
-    set aliases {pagesbytime pagetime pagesearch}
-  
-    set result {}
-
-    foreach alias $aliases {
-        lappend result [db eval info command $alias]
-    }
-
-    set result
-} {pagesbytime pagetime pagesearch}
 
 #-----------------------------------------------------------------------
 # notifycommand
 
-test notify-1.1 {notify on set} {} {
-    cleanup
-
+test notify-1.1 {notify on set} -body {
     notebookdb create db -dbfile pages.dat
     db register Me Notify
     db set Foo Bar
 
     set notifyList
-} {set Foo}
-
-test notify-1.2 {notify on delete} {} {
+} -cleanup {
     cleanup
+} -result {set Foo}
 
+test notify-1.2 {notify on delete} -body {
     notebookdb create db -dbfile pages.dat
     db register Me Notify
     db set Foo Bar
     db delete Foo
 
     set notifyList
-} {set Foo delete Foo}
-
-test notify-1.3 {notify on rename to change case} {} {
+} -cleanup {
     cleanup
+} -result {set Foo delete Foo}
 
+test notify-1.3 {notify on rename to change case} -body {
     notebookdb create db -dbfile pages.dat
     db register Me Notify
     db set foo Bar
     db rename foo Foo
 
     set notifyList
-} {set foo set Foo}
-
-test notify-1.4 {notify on normal rename} {} {
+} -cleanup {
     cleanup
+} -result {set foo set Foo}
 
+test notify-1.4 {notify on normal rename} -body {
     notebookdb create db -dbfile pages.dat
     db register Me Notify
     db set One xyz
@@ -591,11 +514,11 @@ test notify-1.4 {notify on normal rename} {} {
     db rename One Uno
 
     set notifyList
-} {set One set Two set One set Two set Uno delete One}
-
-test notify-1.5 {register and unregister notify} {} {
+} -cleanup {
     cleanup
+} -result {set One set Two rename {One Uno}}
 
+test notify-1.5 {register and unregister notify} -body {
     notebookdb create db -dbfile pages.dat
     db register Me Notify
     db set One xyz
@@ -603,18 +526,20 @@ test notify-1.5 {register and unregister notify} {} {
     db delete One
 
     set notifyList
-} {set One}
-
-test notify-1.6 {multiple observers} {} {
+} -cleanup {
     cleanup
+} -result {set One}
 
+test notify-1.6 {multiple observers} -body {
     notebookdb create db -dbfile pages.dat
     db register Me Notify
     db register You Notify
     db set One xyz
 
     set notifyList
-} {set One set One}
+} -cleanup {
+    cleanup
+} -result {set One set One}
 
 
 #-------------------------------------------------------------------------
