@@ -1,8 +1,0 @@
-This is normal text.
-
-* This is a bullet.
-** This is a sub-bullet.
-*** This is a sub-sub-bullet.
-* Back to the first level.
-
-This is more normal text.

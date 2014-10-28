@@ -1,9 +1,0 @@
-This is some text
-
-#data FOO
-     Some data
-     of an unknown type
-#undata foo
-
-This is some more text <thru>with a <b>thru</b>
-component</thru> in it.

@@ -1,6 +1,0 @@
-This is some text
-
-#data FOO
-     Some data
-     of an unknown type
-#undata foo

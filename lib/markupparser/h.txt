@@ -1,6 +1,0 @@
-This is some text.
-#meta author Joe Blow
-#meta title A Life in Chewing Gum
-This is some more text.
-#meta foo
-#meta bar      asdf  asd   asdf     
