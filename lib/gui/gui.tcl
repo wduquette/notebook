@@ -13,9 +13,7 @@
 
 package provide gui 1.0
 
-package require Tk 8.4
-package require snit 0.92
-package require BWidget 1.6
+package require BWidget 1.9
 
 namespace eval ::gui:: {
     variable library [file dirname [info script]]

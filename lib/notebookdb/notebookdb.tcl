@@ -35,14 +35,11 @@
 #-----------------------------------------------------------------------
 # Provided package
 
-package provide notebookdb 1.0
+package provide notebookdb 2.0
 
-package require trycatch
-package require snit 0.97
 package require markupparser
 
 namespace eval ::notebookdb::notebookdb:: {
-    namespace import -force ::trycatch::*
 }
 
 #-----------------------------------------------------------------------

@@ -2,3 +2,5 @@ project notebook 2.2.0 "Notebook Personal Wiki"
 homepage http://home.page.url
 app notebook -exetype exe -gui
 require Tcl 8.6.1
+require snit 2.3
+require BWidget 1.9

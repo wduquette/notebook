@@ -6,14 +6,14 @@
 #    notebook: Your project description
 #
 # DESCRIPTION:
-#    notebookapp(n): main procedure
+#    app_notebook(n): main procedure
 #
 #-------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------
 # Exported Commands
 
-namespace eval ::notebookapp {
+namespace eval ::app_notebook {
     namespace export \
         main
 }
@@ -25,8 +25,8 @@ namespace eval ::notebookapp {
 #
 # Dummy procedure
 
-proc ::notebookapp::main {argv} {
-    puts "[quillinfo project] [quillinfo version]"
-    puts ""
-    puts "Args: <$argv>"
+proc ::app_notebook::main {argv} {
+    namespace eval :: {
+        source [file join $::app_notebook::library notebook.tcl]
+    }
 }

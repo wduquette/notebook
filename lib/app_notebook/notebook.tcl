@@ -1,5 +1,3 @@
-package provide app-notebook 2.1
-
 #-------------------------------------------------------------------------
 # TITLE:
 #	notebook.tcl
@@ -13,12 +11,6 @@ package provide app-notebook 2.1
 # LICENSE:
 #       Copyright (C) 2005 by William H. Duquette.  This file may
 #       be used subject to the terms in license.txt.
-
-#-----------------------------------------------------------------------
-# Load Tk
-
-package require Tk 8.4         ;# Needed when invoked from tclkit
-
 
 #-----------------------------------------------------------------------
 # Catch Mac OS X open events at startup.
@@ -55,20 +47,11 @@ foreach encodingFile [glob -nocomplain $encodingGlob] {
     }
 }
 
-
-
-#-----------------------------------------------------------------------
-# Load fundamental packages
-
-package require trycatch
-package require snit 0.97
-
-namespace import ::trycatch::*
-
 #-----------------------------------------------------------------------
 # Version
 
-set notebookVersion "V2.1.3"
+# FIXME
+set notebookVersion "V2.2.0"
 
 #-----------------------------------------------------------------------
 # Allow notebook to execute scripts.
@@ -134,8 +117,8 @@ proc version {} {
 
 set appdir [file dirname [info script]]
 
-package require gui
-namespace import gui::*
+package require gui 1.0
+namespace import ::gui::*
 
 package require markupparser
 package require notebookdb

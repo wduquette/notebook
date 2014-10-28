@@ -17,7 +17,7 @@
 
 namespace eval ::quillinfo {
     variable meta
-    array set meta {url http://my.home.page description {Notebook Personal Wiki} provides {} homepage http://home.page.url requires Tcl exetype-notebook exe local-Tcl 0 gui-notebook 1 apps notebook version 2.2.0 version-Tcl 8.6.1 project notebook dists {}}
+    array set meta {url http://my.home.page description {Notebook Personal Wiki} provides {} local-BWidget 0 homepage http://home.page.url requires {Tcl snit BWidget} version-BWidget 1.9 version-snit 2.3 exetype-notebook exe local-Tcl 0 gui-notebook 1 apps notebook local-snit 0 version 2.2.0 version-Tcl 8.6.1 project notebook dists {}}
 
     namespace export \
         project      \

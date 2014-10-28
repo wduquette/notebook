@@ -1,0 +1,43 @@
+#-------------------------------------------------------------------------
+# TITLE:
+#    app_notebook.test
+#
+# PROJECT:
+#    notebook: Your project description
+#
+# DESCRIPTION:
+#    app_notebook(n): Test Suite
+#-------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------
+# Load the tcltest package
+
+if {[lsearch [namespace children] ::tcltest] == -1} {
+    package require tcltest 2.3
+    eval ::tcltest::configure $argv
+}
+
+namespace import ::tcltest::test
+
+#-------------------------------------------------------------------------
+# Load the package to be tested
+
+source ../../lib/app_notebook/pkgModules.tcl
+namespace import ::app_notebook::*
+
+#-------------------------------------------------------------------------
+# Setup
+
+# TBD
+
+#-------------------------------------------------------------------------
+# dummy
+
+test dummy-1.1 {dummy test} -body {
+    set a false
+} -result {true}
+
+#-------------------------------------------------------------------------
+# Cleanup
+
+::tcltest::cleanupTests

@@ -37,11 +37,11 @@ package require Tk 8.6.1
 # -quill-tk-end
 }
 
-# notebookapp(n) is the package containing the bulk of the 
+# app_notebook(n) is the package containing the bulk of the 
 # notebook code.  In particular, this package defines the
 # "main" procedure.
-package require notebookapp
-namespace import notebookapp::*
+package require app_notebook
+namespace import app_notebook::*
 
 #-------------------------------------------------------------------------
 # Invoke the application
