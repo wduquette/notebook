@@ -33,16 +33,6 @@
 #-----------------------------------------------------------------------
 
 #-----------------------------------------------------------------------
-# Provided package
-
-package provide notebookdb 2.0
-
-package require markupparser
-
-namespace eval ::notebookdb::notebookdb:: {
-}
-
-#-----------------------------------------------------------------------
 # Public Functions
 
 namespace eval ::notebookdb:: {

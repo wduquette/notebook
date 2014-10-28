@@ -19,16 +19,6 @@
 #
 #-----------------------------------------------------------------------
 
-#-----------------------------------------------------------------------
-# Required Packages
-
-package require textutil
-
-#-----------------------------------------------------------------------
-# Provided package
-
-package provide markupparser 2.0
-
 namespace eval ::markupparser:: {
     namespace export {[a-z]*}
 }
