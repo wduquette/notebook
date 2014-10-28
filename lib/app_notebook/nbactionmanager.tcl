@@ -948,11 +948,13 @@ snit::type nbactionmanager {
     method new-notebook {} {
         try {
             set newdb [dbmanager new $options(-toplevel)]
-        } catch -msg msg -info einfo -code code {
+        } on error msg {
+            # FIXME
             onerr notebookdb::loaderror {
                 error $msg {} USER
             } * {
-                error $msg $einfo $code
+                # FIXME
+                error $msg $::errorInfo $::errorCode
             }
         } 
 
@@ -981,7 +983,10 @@ snit::type nbactionmanager {
     method open-notebook {} {
         try {
             set newdb [dbmanager open $options(-toplevel)]
-        } catch -msg msg -info einfo -code code {
+        } on error msg {
+            # FIXME
+            error $msg {} USER
+
             onerr notebookdb::loaderror {
                 error $msg {} USER
             } * {

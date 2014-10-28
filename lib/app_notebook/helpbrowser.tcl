@@ -103,7 +103,7 @@ proc ::app_notebook::HelpBrowser::MakeBrowser {} {
     # notebookbrowser open the file.
     try {
         set db [dbmanager openfile $(-helpfile)]
-    } catch -msg errmsg {
+    } on error errmsg {
         error "Notebook Help could not open help file $(-helpfile): $errmsg"
     }
 

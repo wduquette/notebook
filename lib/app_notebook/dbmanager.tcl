@@ -95,7 +95,7 @@ snit::type dbmanagerType {
                 file copy -force \
                     [file join $appdir default.nbk] \
                     $canonicalName
-            } catch -msg errmsg {
+            } on error errmsg {
                 error "Could not copy default pages: $errmsg"
             }
         }
