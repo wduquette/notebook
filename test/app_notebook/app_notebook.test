@@ -35,7 +35,7 @@ namespace import ::app_notebook::*
 
 test dummy-1.1 {dummy test} -body {
     set a false
-} -result {true}
+} -result {false}
 
 #-------------------------------------------------------------------------
 # Cleanup

@@ -17,7 +17,15 @@
 
 namespace eval ::quillinfo {
     variable meta
-    array set meta {local-textutil::adjust 0 url http://my.home.page description {Notebook Personal Wiki} provides {} local-BWidget 0 homepage http://home.page.url requires {Tcl snit BWidget textutil::expander textutil::adjust} version-textutil::expander 1.3.1 version-BWidget 1.9 version-snit 2.3 exetype-notebook exe local-Tcl 0 gui-notebook 1 apps notebook version-textutil::adjust 0.7.1 local-textutil::expander 0 local-snit 0 version 2.2.0 version-Tcl 8.6.1 project notebook dists {}}
+    array set meta {local-textutil::adjust 0 url http://my.home.page description {Notebook Personal Wiki} provides {} local-BWidget 0 homepage http://home.page.url requires {Tcl snit BWidget textutil::expander textutil::adjust} version-textutil::expander 1.3.1 version-BWidget 1.9 version-snit 2.3 exetype-notebook exe local-Tcl 0 gui-notebook 1 distpat-install-%platform {
+    %apps
+    docs/*.html
+    docs/*/*.html
+    docs/*.md
+    LICENSE
+    README.md
+
+} apps notebook version-textutil::adjust 0.7.1 local-textutil::expander 0 local-snit 0 version 2.2.0 version-Tcl 8.6.1 project notebook dists install-%platform}
 
     namespace export \
         project      \
