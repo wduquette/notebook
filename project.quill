@@ -6,3 +6,13 @@ require snit 2.3
 require BWidget 1.9
 require textutil::expander 1.3.1
 require textutil::adjust 0.7.1
+
+dist install-%platform {
+    %apps
+    docs/*.html
+    docs/*/*.html
+    docs/*.md
+    LICENSE
+    README.md
+
+}
