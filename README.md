@@ -1,4 +1,4 @@
-# Notebook Personnel Wiki
+# Notebook Personal Wiki
 
 # History
 
