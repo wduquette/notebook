@@ -298,8 +298,14 @@ proc ::markupparser::parse {text} {
                     }
                 }
             }
+
+            # NEXT handle WikiNames autolinks
+            if {[regexp {^((?:[A-Z][a-z0-9]+){2,})(.*)$} $para -> link para]} {
+                lappend result LINK $link
+                continue
+            }   
             
-            if {![regexp {^(.[^'<\[]*)(['<\[].*)$} $para dummy elem para]} {
+            if {![regexp {^(.[^'<\[A-Z]*)(['<\[A-Z].*)$} $para dummy elem para]} {
                 set elem $para
                 set para ""
             }
