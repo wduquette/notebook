@@ -22,3 +22,18 @@ at https://github.com/wduquette/notebook/issues.
 
 Will Duquette - will@wjduquette.com
 
+# Screenshots
+
+Some screenshots from Notebook v2.2.0 taken on Windows XP.
+
+![Home page](assets/screenshots/home.png "Home page")
+
+![Sandbox page (with Sidebar open)](assets/screenshots/sandbox_plus_sidebar.png "Sandbox page (with Sidebar open)")
+
+![Editing Sandbox page](assets/screenshots/edit_sandbox.png "Editing Sandbox page")
+
+![Index page](assets/screenshots/index.png "Index page")
+
+Notebook's Preferences dialog allows various style customization. Fonts are all set to Calibri, except Liberation Mono for "Mono Text".
+
+![Home page (neon style)](assets/screenshots/home_neon.png "Home page (neon style)")
