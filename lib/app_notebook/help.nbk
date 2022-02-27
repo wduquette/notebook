@@ -1405,7 +1405,7 @@ Action] is listed after each in parentheses.
   resulting Notebook markup text to the clipboard.
 
 * <b>Edit / Copy Page / As Raw Markup</b> 
-<s>([copy-this-page-as-raw-markup|copy-this-page-as])
+<s>([copy-this-page-as-raw-markup|copy-this-page-as])</s>
 <br>Copies the raw markup of the current page to the clipboard.  This is
   equivalent to highlighting a page's text in the [Page Editor] and using
   * <b>Edit / Copy</b>.
